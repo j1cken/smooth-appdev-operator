@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: smooth-appdev-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: smooth-appdev-operator
+  template:
+    metadata:
+      labels:
+        name: smooth-appdev-operator
+    spec:
+      serviceAccountName: smooth-appdev-operator
+      containers:
+        - name: smooth-appdev-operator
+          # Replace this with the built image name
+          image: REPLACE_IMAGE
+          command:
+          - smooth-appdev-operator
+          imagePullPolicy: Always
+          env:
+            - name: WATCH_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: OPERATOR_NAME
+              value: "smooth-appdev-operator"
