@@ -1,0 +1,9 @@
+apiVersion: smoothops.redhat.com/v1alpha1
+kind: SmoothUpdate
+metadata:
+  name: example-smoothupdate
+spec:
+  # Add fields here
+  deployment: quarkus-microprofile-rest
+  version: v1
+  sql: update-1.sql
