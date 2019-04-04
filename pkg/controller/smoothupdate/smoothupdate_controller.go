@@ -160,6 +160,7 @@ func (r *ReconcileSmoothUpdate) Reconcile(request reconcile.Request) (reconcile.
 
 		if !initialDeployment {
 			found.Spec.Template.ResourceVersion = version
+			found.Spec.Template.Spec.Containers[0].Image = "docker-registry.default.svc:5000/" + instance.Namespace + "/" + instance.Spec.Deployment + ":" + instance.Spec.Version
 			err = r.client.Update(context.TODO(), found)
 			if err != nil {
 				reqLogger.Error(err, "Failed to update Deployment", "Deployment.Namespace", found.Namespace, "Deployment.Name", found.Name)
